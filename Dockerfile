@@ -8,11 +8,13 @@ RUN apt-get update -y && \
     apt-get install --no-install-recommends -y python3-pip && rm -rf /var/lib/apt/lists/* && \
     pip3 install  --no-cache-dir pip --upgrade
 
+COPY ./server/requirements.txt /app/
 
 RUN  pip3 install  --no-cache-dir -r requirements.txt
 
-# COPY ./server/static/ /app/
 COPY ./server/ /app/
+
+# COPY ./server/static/ /app/
 
 CMD ["python","fast.py"]
 
