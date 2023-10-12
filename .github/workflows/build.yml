@@ -41,14 +41,13 @@ jobs:
           platforms: all
 
       - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@master
+        uses: docker/setup-buildx-action@v2
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+        uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -76,7 +75,7 @@ jobs:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           #在这里通过加入需要编译的平台和前面配好的QEMU，buildx来达到多平台编译
-          platforms: linux/amd64,linux/arm64,linux/arm
+          platforms: linux/amd64,linux/arm64
           #指定用户/仓库名
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
