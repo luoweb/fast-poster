@@ -1,5 +1,5 @@
 # FROM fastposter/fastposter:latest
-FROM python:3.11-slim as builder
+FROM python:3.11-slim
 
 # 指定运行时的工作目录
 WORKDIR /app
